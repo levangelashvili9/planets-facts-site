@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import { ThemeProvider } from "styled-components";
+import { themes, GlobalStyles } from "./themes";
+import { Route, Routes } from "react-router-dom";
+import PageMobile from "./pages/PageMobile";
+import PageTablet from "./pages/PageTablet";
 
 function App() {
+  const [section, setSection] = useState("overview");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={themes}>
+      <GlobalStyles />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <PageMobile section={section} setSection={setSection} />
+              <PageTablet section={section} setSection={setSection} />
+            </>
+          }
+        />
+        <Route
+          path="/:planetName"
+          element={
+            <>
+              <PageMobile section={section} setSection={setSection} />
+              <PageTablet section={section} setSection={setSection} />
+            </>
+          }
+        />
+      </Routes>
+    </ThemeProvider>
   );
 }
 
